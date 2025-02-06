@@ -1,0 +1,7 @@
+.container-body{
+    display: flex;
+    background-color: aliceblue;
+    justify-content: center;
+    margin-top: 10px;
+    height: calc(100vh - 60px);
+}
