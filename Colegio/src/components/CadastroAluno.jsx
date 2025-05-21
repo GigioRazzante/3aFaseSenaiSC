@@ -1,6 +1,5 @@
 import { useState } from 'react';
-// src/components/CadastroAluno.jsx
-import '../../pages/index.css';  // Caminho corrigido (volta 2 pastas: components → src → pages)
+import '../index.css';
 
 export default function CadastroAluno() {
   const [nome, setNome] = useState('');
@@ -8,17 +7,31 @@ export default function CadastroAluno() {
   const [status, setStatus] = useState('ativo');
   const [notas, setNotas] = useState(['', '', '', '']);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log({ nome, matricula, status, notas });
-    alert('Aluno cadastrado!');
+  const salvarDados = () => {
+    console.log('Dados salvos:', { nome, matricula, status });
+    alert('Dados pessoais salvos com sucesso!');
+  };
+
+  const salvarNotas = () => {
+    console.log('Notas salvas:', notas);
+    alert('Notas salvas com sucesso!');
+  };
+
+  const salvarTudo = () => {
+    console.log('Tudo salvo:', { nome, matricula, status, notas });
+    alert('Cadastro completo salvo!');
+    // Limpar os campos se necessário
+    // setNome('');
+    // setMatricula('');
+    // setStatus('ativo');
+    // setNotas(['', '', '', '']);
   };
 
   return (
     <div className="container-desktop">
       <h1>Cadastro de Aluno</h1>
       
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={(e) => e.preventDefault()}>
         {/* Seção Dados do Aluno */}
         <div className="secao-dados">
           <h2>Dados Pessoais</h2>
@@ -52,15 +65,23 @@ export default function CadastroAluno() {
               <option value="inativo">Inativo</option>
             </select>
           </div>
+
+          <button 
+            type="button" 
+            className="botao-azul"
+            onClick={salvarDados}
+          >
+            Salvar Dados
+          </button>
         </div>
 
         {/* Seção Notas */}
         <div className="secao-notas">
           <h2>Notas do Aluno</h2>
-          <div className="grades-grid">
+          <div className="notas-container">
             {notas.map((nota, index) => (
-              <div className="campo-nota" key={index}>
-                <label>Nota {index + 1}:</label>
+              <div className="nota-item" key={index}>
+                <label>Nota {index + 1}</label>
                 <input
                   type="number"
                   value={nota}
@@ -75,10 +96,23 @@ export default function CadastroAluno() {
               </div>
             ))}
           </div>
+
+          <button 
+            type="button" 
+            className="botao-verde"
+            onClick={salvarNotas}
+          >
+            Salvar Notas
+          </button>
         </div>
 
-        <button type="submit" className="botao-verde">
-          Salvar Cadastro
+        {/* Botão para salvar tudo */}
+        <button 
+          type="button" 
+          className="botao-roxo"
+          onClick={salvarTudo}
+        >
+          Salvar Tudo
         </button>
       </form>
     </div>
